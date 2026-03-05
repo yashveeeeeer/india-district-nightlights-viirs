@@ -1,0 +1,22 @@
+# python
+__pycache__/
+*.pyc
+*.egg-info/
+.venv/
+
+# data (never commit large/derived rasters)
+data/raw/
+data/processed/
+
+# outputs (optional: keep outputs out of git; you can commit small CSV if desired)
+output/
+
+# notebooks
+.ipynb_checkpoints/
+
+# credentials (never commit)
+sa-key.json
+*.json.key
+
+# OS
+.DS_Store

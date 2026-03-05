@@ -1,0 +1,45 @@
+project:
+  country: India
+  crs: EPSG:4326
+
+boundaries:
+  # Recommended: Census 2011 districts from DataMeet maps (community-maintained)
+  # Alternative: GADM admin level 2 (license restricts redistribution)
+  source: datameet
+  datameet_zip_url: "https://github.com/datameet/maps/archive/refs/heads/master.zip"
+  # In that zip, districts shapefile path:
+  datameet_districts_relpath: "maps-master/Survey-of-India-Index-Maps/Boundaries/India-Districts-2011Census.shp"
+
+nightlights:
+  years:
+    start: 2012
+    end: 2024
+  viirs:
+    # Option A (recommended): Earth Engine with service account
+    use_earth_engine: true
+    ee_scale: 1000  # output resolution in metres; 1000m is ideal for district-level stats
+    ee_project: "shining-insight-436416-c8"
+    ee_service_account_key: "sa-key.json"
+
+    # Option B: EOG/Payne Institute VNL annual tiles (set use_earth_engine: false)
+    eog_base_url: "https://eogdata.mines.edu/nighttime_light/annual/vnl_v22/"
+    product_band: "average"
+
+outputs:
+  csv_path: "output/csv/nightlights_district_panel.csv"
+  geojson_dir: "output/geojson"
+
+processing:
+  # district-level metrics to compute from each raster
+  metrics:
+    - mean
+    - median
+    - sum
+    - std
+    - min
+    - max
+  # Extra interpretable fields
+  derive:
+    log1p_mean: true
+    log1p_median: true
+    valid_pixel_share: true
