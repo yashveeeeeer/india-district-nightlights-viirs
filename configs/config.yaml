@@ -18,8 +18,14 @@ nightlights:
     # Option A (recommended): Earth Engine with service account
     use_earth_engine: true
     ee_scale: 1000  # output resolution in metres; 1000m is ideal for district-level stats
-    ee_project: "YOUR_GCP_PROJECT_ID"           # replace with your Google Cloud project ID
-    ee_service_account_key: "sa-key.json"       # place your service account key JSON here
+
+    # REQUIRED: set this to your Google Cloud project ID (e.g., "my-nightlights-project")
+    # See HOW-TO-USE.md for step-by-step setup instructions
+    ee_project: null
+
+    # Optional: path to a service account key JSON file
+    # Leave as null to use OAuth credentials (earthengine authenticate)
+    ee_service_account_key: null
 
     # Option B: EOG/Payne Institute VNL annual tiles (set use_earth_engine: false)
     eog_base_url: "https://eogdata.mines.edu/nighttime_light/annual/vnl_v22/"
@@ -42,4 +48,3 @@ processing:
   derive:
     log1p_mean: true
     log1p_median: true
-    valid_pixel_share: true
