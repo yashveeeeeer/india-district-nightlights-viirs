@@ -4,6 +4,7 @@
 
 If you've been searching for *India night light data by district*, *VIIRS nighttime lights India download*, *district-wise luminosity data India*, or *satellite nightlight data for Indian states and districts* -- this is what you need.
 
+**[>> Get started in 5 minutes -- HOW-TO-USE.md](HOW-TO-USE.md)**
 
 > **Need a ready-to-use India nighttime lights database?**
 > The **[Development Data Lab's SHRUG](https://www.devdatalab.org/shrug_download/)** provides a complete, standardized nighttime lights dataset for India -- covering **DMSP (1992-2013)** and **VIIRS (2012-2021)** -- across 500,000 villages, 8,000 towns, and 4,000 legislative constituencies, downloadable as CSV or Stata files. No setup required.
@@ -49,6 +50,8 @@ The whole thing runs end-to-end with a single command. The output is a clean, re
 One file per year with district polygons and all nightlight metrics attached -- ready for mapping in QGIS, kepler.gl, or any GIS tool.
 
 ## Quick Start
+
+> **Note:** The pre-built dataset (641 districts x 13 years) is already included in `output/csv/`. You only need to run the pipeline if you want to customize parameters. For detailed setup instructions, see **[HOW-TO-USE.md](HOW-TO-USE.md)**.
 
 ### 1. Clone and set up
 
