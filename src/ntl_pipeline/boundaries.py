@@ -19,9 +19,7 @@ def download_datameet_boundaries(cfg: Config, raw_dir: Path) -> Path:
 
     # Extract all sidecar files for the shapefile (.shp/.shx/.dbf/.prj/.cpg)
     with unzip_to_bytes(zip_path) as z:
-        members = [m for m in z.namelist() if m.startswith(rel[:-4])]  # prefix up to .shp
-        # More robust: extract every file in the same folder with same basename
-        base = rel[:-4]
+        base = rel[:-4]  # prefix up to .shp extension
         members = [m for m in z.namelist() if m.startswith(base)]
         if not members:
             raise FileNotFoundError(f"Could not find {rel} inside {zip_path}")
@@ -45,11 +43,7 @@ def load_districts(shp_path: Path, crs: str = "EPSG:4326") -> gpd.GeoDataFrame:
     else:
         gdf = gdf.to_crs(crs)
 
-    # Normalize identifiers if present
-    for cand in ["DIST_CODE", "DISTRICT", "DIST_NAME", "NAME_2", "DISTRICT_N"]:
-        if cand in gdf.columns:
-            pass
-
+    # Normalize district ID
     id_candidates = ["censuscode", "DIST_CODE", "DT_CEN_CD"]
     for col in id_candidates:
         if col in gdf.columns:
@@ -58,6 +52,7 @@ def load_districts(shp_path: Path, crs: str = "EPSG:4326") -> gpd.GeoDataFrame:
     else:
         gdf["district_id"] = gdf.index.astype(str)
 
+    # Normalize district name
     name_candidates = ["DISTRICT", "DIST_NAME", "NAME_2"]
     for col in name_candidates:
         if col in gdf.columns:
@@ -66,6 +61,7 @@ def load_districts(shp_path: Path, crs: str = "EPSG:4326") -> gpd.GeoDataFrame:
     else:
         gdf["district_name"] = gdf["district_id"]
 
+    # Normalize state name
     state_candidates = ["ST_NM", "STATE", "ST_NAME", "NAME_1"]
     for col in state_candidates:
         if col in gdf.columns:
